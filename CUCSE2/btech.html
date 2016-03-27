@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CUCSE</title>
+    <link rel="icon" href="pic/cu_logo.ico"
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/w3.css">
+    <style type="text/css">
+        body {
+            margin-left: 10%;
+            margin-right: 10%;
+            background-color: darkgrey;
+        }
+        /*remove the margins if the device is smaller and in portrait oriented*/
+        @media only screen and (max-aspect-ratio: 16/9) {
+            body {
+                margin-left: 0%;
+                margin-right: 0%;
+            }
+        }
+        #slideShowImages img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<!--cu banner-->
+<div class="w3-row">
+    <div class="w3-col">
+        <img src="pic/CU_BANNER.gif" alt="CUCSE Banner" width="100%">
+    </div>
+</div>
+<br>
+    <!--menu bar-->
+    <div class="w3-row">
+        <ul class="w3-navbar w3-border w3-card-4 w3-black">
+            <li><a class="w3-hover-red" href="index.html">Home</a></li>
+            <li class="w3-dropdown-hover w3-hover-red">
+                <a class="w3-hover-red" href="#">Programs</a>
+                <div class="w3-dropdown-content w3-card-4">
+                    <a class="w3-hover-black" href="btech.html">B.Tech</a>
+                    <a class="w3-hover-red" href="#">M.Tech</a>
+                    <a class="w3-hover-black" href="#">M.Sc</a>
+                </div>
+            </li>
+            <li><a class="w3-hover-red" href="#">Faculty</a></li>
+            <li class="w3-dropdown-hover w3-hover-red">
+                <a class="w3-hover-red" href="#">Facilities</a>
+                <div class="w3-dropdown-content w3-card-4">
+                    <a class="w3-hover-black" href="#">Library</a>
+                    <a class="w3-hover-red" href="#">Labs</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <br>
+    <!--main content-->
+	<div class="w3-row">
+        <div class="w3-col s1 m1 l1 w3-sidenav w3-black">
+            <a href="btech.html" class="w3-red">B.Tech.</a><br>
+            <a class="w3-hover-red" href="mtech.html">M.Tech.</a><br>
+            <a class="w3-hover-red" href="msc.html">M.Sc.</a><br>
+        </div>
+        <div class="w3-col s2 m2 l2">&nbsp;</div>
+        <div class="w3-rest w3-card-4 w3-white">
+            Eligibity:
+            For admission to 3-year B.Tech. courses of the Faculty of Technology, a candidate must have HONOURS of this University in the Computer Science/Physics/Mathematics/Statistics at the graduation level are eligible. Notifications inviting applications for admission appear in the leading newspapers of Kolkata immediately after the publication of results of the B.A./B.Sc./B.Com. Hons. final examinations of this University. Admission is made on merit on the results of the current year's examination of this University. A limited number of seats are reserved for students of other universities who have obtained first class honours degree during the current year. A quota for S.C./ S.T. students is also available. For further details of this Secretary of Faculty Councils may be contacted.
+
+            Application:
+            - Application forms for the admission to CUCSE, Kolkata are distributed among the candidates from Rajabazar Science College Campus.
+
+            Selection:
+            - Selection is strictly in order of merit. B.Sc.(Hons.) in Computer Science are eligible. Intake capacity of CUCSE for BTECH course is 30.
+
+            Facilities of Study for Foreign Students:
+            Foreign students are welcome to study under the University of Calcutta either at postgraduate or undergraduate level provided they have student Visa and are otherwise eligible for the purpose. In such cases, their applications along with relevant papers must be sponsored through their respective Embassies/High Commissions supported by ‘no objection' clearance from the Ministry of External Affairs, Govt. of India.
+        </div>
+    </div>
+<!--footer-->
+<!--google map popup-->
+<div id="map_modal" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom" style="width:520px;height:420px;">
+        <div class="w3-container w3-black">
+            <span onclick="document.getElementById('map_modal').style.display='none'" class="w3-closebtn">&times;</span>
+            CUCSE
+        </div>
+        <div class="w3-container" id="map_frame">
+
+        </div>
+        <!--div class="w3-container w3-teal">
+            <p>Modal Footer</p>
+        </div-->
+    </div>
+</div>
+<br>
+<div class="w3-row w3-black w3-card-4">
+    <div class="w3-col s12 m12 l6">
+        <div class="w3-margin-8">
+            Department of Computer Science and Engineering<br>
+            Calcutta University Technology Campus<br>
+            JD-3, JD Block, Sector III<br>
+            Kolkata - 700098<br>
+            West Bengal, India<br>
+            Phone: 033 2241 0071
+        </div>
+    </div>
+    <div class="w3-col s12 m12 l2">
+        <div class="w3-margin-8">
+            <button onclick="loadMap();" class="w3-btn w3-hover-red">Locate on map</button>
+        </div>
+    </div>
+    <div class="w3-col s12 m12 l4">
+        <div class="w3-right-align w3-margin-8 w3-margin-top">
+            <br>Copyright &copy; 2016<br>
+            <b>CUCSE</b><br>
+            All Rights Reserved
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function loadMap() {
+        document.getElementById('map_modal').style.display='block';
+        document.getElementById("map_frame").innerHTML = '<iframe src="map.html" height="380px" width="500px"></iframe>';
+//            var xhttp = new XMLHttpRequest();
+//            xhttp.onreadystatechange = function() {
+//                if (xhttp.readyState == 4 && xhttp.status == 200) {
+//                    document.getElementById("map_frame").innerHTML = '<iframe height="380px" width="500px">'
+//                                    +xhttp.responseText+'</iframe>';
+//                    console.log(xhttp.responseText);
+//                }
+//            };
+//            xhttp.open("GET", "map.html", true);
+//            xhttp.send();
+    }
+</script>
+</body>
+</html>
