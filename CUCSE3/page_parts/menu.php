@@ -6,6 +6,13 @@
     <ul class="w3-navbar w3-border w3-card-4 w3-black">
         <li><a id="menuItem<?php echo $menuItem++?>" class="w3-hover-red" href="index.php">Home</a></li>
         <li class="w3-dropdown-hover w3-hover-red">
+            <a id="menuItem<?php echo $menuItem++?>" class="w3-hover-red" href="#">About Us</a>
+            <div class="w3-dropdown-content w3-card-4">
+                <a class="w3-hover-black" href="history.php">History</a>
+                <a class="w3-hover-red" href="vision_mission.php">Vision and Mission</a>
+            </div>
+        </li>
+        <li class="w3-dropdown-hover w3-hover-red">
             <a id="menuItem<?php echo $menuItem++?>" class="w3-hover-red" href="btech.php">Programs</a>
             <div class="w3-dropdown-content w3-card-4">
                 <a class="w3-hover-black" href="btech.php">B.Tech</a>
