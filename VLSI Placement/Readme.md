@@ -13,3 +13,9 @@ Department of Computer Science and Engineering,
 Calcutta University
 
 15th August, 2016
+
+####Execution
+For CLI mode: 
+java -jar placer.jar
+
+For GUI mode: java -jar placer.jar -gui
