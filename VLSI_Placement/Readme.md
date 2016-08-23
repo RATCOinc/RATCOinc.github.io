@@ -4,8 +4,18 @@ Today VLSI design is enriched with many sophisticated algorithms and development
 This section deals with the placement problem from the physical design process. It attempts to deliver a feel of the recent trends in the placement techniques.
 The was our class assignment for M.Tech. 2nd semester course.
 
-Full documentation and source code is also attached here.
+####Full documentation and source code is also attached here.
+http://ratcoinc.github.io/VLSI_Placement/doc/
+https://ratcoinc.github.io/VLSI_Placement/placer.pdf
 
+
+####Execution
+Download the jar file: http://ratcoinc.github.io/VLSI_Placement/placer.jar
+
+For CLI mode: 
+java -jar placer.jar
+
+For GUI mode: java -jar placer.jar -gui
 
 ###Rathindra Nath Dutta & Arjaita Pal
 Master of Technology,
@@ -14,8 +24,3 @@ Calcutta University
 
 15th August, 2016
 
-####Execution
-For CLI mode: 
-java -jar placer.jar
-
-For GUI mode: java -jar placer.jar -gui
