@@ -1,0 +1,29 @@
+# UCLA nets 1.0
+# File header with version information, etc.,
+# Anything following “#” is a comment, and should be ignored
+
+# for each net
+# NetDegree	: degree_of_this_net	net_name
+# 	node_name	pin_dir	:	pin_xoffset		pin_yoffset
+
+NumNets	: 5		# Total number of nets
+NumPins	: 13		# Total number of pins in the netlist
+
+NetDegree : 3 n0
+        p1 B  : 0.25 0.25
+        a1 B  : 2.5 25
+        a0 B  : 0.125 2.625
+NetDegree : 3 n1
+        a0 B  : 0.25 5.25
+        a2 B  : 0.5 0.5
+        a3 B  : 15 150
+NetDegree : 3 n2
+        a1 B  : 5 50
+        a2 B  : 0.5 0.5
+        a3 B  : 15 150
+NetDegree : 2 n3
+        a2 B  : 0.75 0.75
+        p2 B  : 15 150
+NetDegree : 2 n4
+        a3 B  : 30 0
+        p3 B  : 0 300
