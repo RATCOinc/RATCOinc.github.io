@@ -94,7 +94,7 @@ public class CLPair {
         Point xMid = xSorted.get(xSorted.size()/2);
         for (int i = 0; i < ySorted.size(); i++) {
             Point p = ySorted.get(i);
-            if(Math.abs(xMid.y - p.y) <= delta) {
+            if(Math.abs(xMid.x - p.x) <= delta) {
                 ySortedStrip.add(p);
             }
             
