@@ -1,2 +1,0 @@
-# CUCSE
-work in progress
