@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Circle Drawing</title>
+    <meta charset="utf-8">
+    <meta name='viewport' content='width=1024 initial-scale=1'> 
+    <!-- width=device-width, initial-scale=1'> -->
+    <link rel='stylesheet' type='text/css' media='screen' href='stylesheets/w3.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='stylesheets/main.css'>
+    <script src='js/circle.js'></script>
+    <style>
+        table td + td { border-left:2px solid white; }
+        th + th { border-left:2px solid white; }
+        tr:nth-child(even) {
+            background-color: gray;
+            /* color: black; */
+        }
+    </style>
+</head>
+<body>
+    <div class="w3-top" style="position:sticky">
+        <div class="w3-container w3-red">
+            <div class="w3-col w3-container s6 m3 l2">x<sub>c</sub> <input id='xc' type="text" value="0" size="4" /></div>
+            <div class="w3-col w3-container s6 m3 l2">y<sub>c</sub> <input id='yc' type="text" value="0" size="4" /></div>
+            <div class="w3-col w3-container s8 m4 l3">Radius <input id='r' type="text" value="20" size="4" /></div>
+            <div class="w3-col w3-container s4 m2 l2"><button id="b" onclick="draw();">Draw</button><br /></div>
+        </div>
+    </div><br />
+    <!-- <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> -->
+    <div class="w3-container">
+        <canvas id="draw" class="w3-col s12 m5 l4 myBorder"></canvas>
+    
+        <div class="w3-tiny w3-col s12 m7 l8 ">
+            <table class="w3-table w3-bordered w3-centered" id="table1">
+                <!-- <tr><td class="w3-gray">abcd</td></tr> -->
+            </table>
+        </div>
+        <table class="w3-col s12 " id="table2">
+            <!-- <tr><td class="w3-gray">abcd</td></tr> -->
+        </table>
+    </div>
+</body>
+</html>
