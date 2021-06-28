@@ -57,13 +57,14 @@ function draw() {
     // ctx.stroke();
 
     
-    xc = document.getElementById('xc').value;
-    yc = document.getElementById('yc').value;
-    r = document.getElementById('r').value;
+    xc = Number(document.getElementById('xc').value);
+    yc = Number(document.getElementById('yc').value);
+    r = Number(document.getElementById('r').value);
 
     ctx.fillRect(0,0,1,1);
     ctx.font = "3px Monospace";
     ctx.fillText(`(${xc},${yc})`, 1, 1);
+
     midpoint_circle_ver1(xc, yc, r, ctx);
 }
 
@@ -92,10 +93,16 @@ function draw_circle(x, y, xc, yc, ctx, table2) {
     // ctx.beginPath();
     dx = [1, -1, -1, 1];
     dy = [1, 1, -1, -1];
+
+    tmp = [`${x},${y}`]
     for (let i = 0; i < 4; i++) {
         ctx.fillRect(dx[i]*x,dy[i]*y,1,1);
         ctx.fillRect(dx[i]*y,dy[i]*x,1,1);
+
+        tmp[2*i+1] = `${dx[i]*x}+${xc}=${dx[i]*x+xc}, ${dy[i]*y}+${yc}=${dy[i]*y+yc}`;
+        tmp[2*i+2] = `${dx[i]*y}+${xc}=${dx[i]*y+xc}, ${dy[i]*x}+${yc}=${dy[i]*x+yc}`;
     }
+    return buildRowString(tmp);
     // ctx.fillRect(x,y,1,1);
 
     // ctx.fillRect(X+10,Y+10,3,3);
@@ -110,10 +117,10 @@ async function midpoint_circle_ver1(xc, yc, r, ctx) {
     table1.classList.add("myBorder");
     
     table2 = document.getElementById("table2");
-    // const headers = ['iter<br />#', 'd<sub>old</sub>', 'case', 'Δd<sub>E</sub><br />2x+3', 'Δd<sub>SE</sub><br />2(x-y)+5', 'd<sub>new</sub>', 'point<br />x, y']
-    // tbody2 = buildRowString(headers, 'th');
-    // table2.innerHTML = tbody2;
-    // table2.classList.add("myBorder");
+    const headers2 = ['generated point<br />x, y', '2nd octant<br />x+xc, y+yc', '1st octant<br />y+xc, x+yc', '3rd octant<br />-x+xc, y+yc', '4th octant<br />-y+xc, x+yc', '6th octant<br />-x+xc, -y+yc', '5th octant<br />-y+xc, -x+yc', '7th octant<br />x+xc, -y+yc', '8th octant<br />y+xc, -x+yc']
+    tbody2 = buildRowString(headers2, 'th');
+    table2.innerHTML = tbody2;
+    table2.classList.add("myBorder");
     
     var x = 0;
     var y = r;
@@ -121,12 +128,12 @@ async function midpoint_circle_ver1(xc, yc, r, ctx) {
 
     await sleep(sleepTime);
     
-    draw_circle(x, y, xc, yc, ctx, table2);
+    tbody2 += draw_circle(x, y, xc, yc, ctx, table2);
     var i = 0;
     row = [i++, '-', '-', '-', '-', '1-R='+d, 0+', R='+r]
     tbody1 += buildRowString(row);
     table1.innerHTML = tbody1;
-
+    table2.innerHTML = tbody2;
 
     while(y > x) { //2nd octant
         await sleep(sleepTime);
@@ -148,8 +155,9 @@ async function midpoint_circle_ver1(xc, yc, r, ctx) {
             y--;
         }
         x++;
-        draw_circle(x, y, xc, yc, ctx, table2);
+        tbody2 += draw_circle(x, y, xc, yc, ctx, table2);
         tbody1 += buildRowString(row);
         table1.innerHTML = tbody1;
+        table2.innerHTML = tbody2;
     }
 }
