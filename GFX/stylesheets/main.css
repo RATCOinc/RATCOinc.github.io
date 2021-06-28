@@ -23,4 +23,8 @@
     .medium {
         font-size: 0.8em;
     }
+
+    .myBorder {
+        border:1px solid white;
+    }
 /* </style> */
