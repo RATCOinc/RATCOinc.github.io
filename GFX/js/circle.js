@@ -170,7 +170,7 @@ async function midpoint_circle_ver1(xc, yc, r, ctx) {
 
 async function midpoint_circle_ver2(xc, yc, r, ctx) {
     table1 = document.getElementById("table1");
-    const headers = ['iter<br />#', 'd<sub>old</sub>', 'case', 'd<sub>new</sub>', 'Δd<sub>E</sub><br />2x+3', 'Δd<sub>SE</sub><br />2(x-y)+5', 'point<br />x, y']
+    const headers = ['iter #', 'd<sub>old</sub>', 'case', 'd<sub>new</sub>', 'Δd<sub>E</sub>', 'Δd<sub>SE</sub>', 'point x, y']
     tbody1 = buildRowString(headers, 'th');
     table1.innerHTML = tbody1;
     table1.classList.add("myBorder");
@@ -286,7 +286,7 @@ async function Bresenham_circle_ver1(xc, yc, r, ctx) {
 
 async function Bresenham_circle_ver2(xc, yc, r, ctx) {
     table1 = document.getElementById("table1");
-    const headers = ['iter<br />#', 'd<sub>old</sub>', 'case', 'd<sub>new</sub>', 'Δd<sub>E</sub><br />2x+3', 'Δd<sub>SE</sub><br />2(x-y)+5', 'point<br />x, y']
+    const headers = ['iter #', 'd<sub>old</sub>', 'case', 'd<sub>new</sub>', 'Δd<sub>E</sub>', 'Δd<sub>SE</sub>', 'point x, y']
     tbody1 = buildRowString(headers, 'th');
     table1.innerHTML = tbody1;
     table1.classList.add("myBorder");
