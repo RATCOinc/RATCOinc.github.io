@@ -9,7 +9,6 @@ function canvasInit() {
     if (!canvas.getContext)
         return;
     
-    // var ctx = canvas.getContext('2d'); 
     // canvas.width = canvas.height = window.innerWidth*0.8;
     canvas.height = canvas.width;
     // canvas.height = window.innerWidth;
@@ -60,12 +59,29 @@ function draw() {
     xc = Number(document.getElementById('xc').value);
     yc = Number(document.getElementById('yc').value);
     r = Number(document.getElementById('r').value);
+    algo = document.getElementById('algo').value;
+    
 
     ctx.fillRect(0,0,1,1);
     ctx.font = "3px Monospace";
     ctx.fillText(`(${xc},${yc})`, 1, 1);
 
-    midpoint_circle_ver1(xc, yc, r, ctx);
+    switch (algo) {
+        case 'm1':
+            midpoint_circle_ver1(xc, yc, r, ctx);
+            break;
+        case 'm2':
+            midpoint_circle_ver2(xc, yc, r, ctx);
+            break;
+        case 'b1':
+            Bresenham_circle_ver1(xc, yc, r, ctx);
+            break;
+        case 'b2':
+            Bresenham_circle_ver2(xc, yc, r, ctx);
+            break;
+        default:
+            break;
+    }
 }
 
 function buildRowString(values, tag='td') {
@@ -76,18 +92,6 @@ function buildRowString(values, tag='td') {
     str += '</tr>';
     return str;
 }
-
-// function initTable1() {
-//     table1 = document.getElementById("table1");
-//     const headers = ['iteration<br />#', 'd<sub>old</sub>', 'case', 'Δd<sub>E</sub>', 'Δd<sub>SE</sub>', 'd<sub>new</sub>', 'point<br />x, y']
-    
-//     table1.innerHTML = buildRowString(headers, 'th');
-
-//     table1.classList.add("myBorder");
-//     // table1.style.border = '1px solid white';
-
-//     return table1;
-// }
 
 function draw_circle(x, y, xc, yc, ctx, table2) {
     // ctx.beginPath();
@@ -138,20 +142,199 @@ async function midpoint_circle_ver1(xc, yc, r, ctx) {
     while(y > x) { //2nd octant
         await sleep(sleepTime);
 
-        row = [i++, d, '-', '-', '-', '-', '-']
+        row = [i++, d];
         
         if (d <= 0) { //east
             row[2] = '&le;0, East';
-            row[3] = `2(${x})+3=${2*x + 3}`;
-            row[5] = `${d}+(${2*x + 3})=${d + 2*x + 3}`;
+            row[3] = `2(${x})+3=${2*x+3}`;
+            row[4] = '-';
+            row[5] = `${d}+(${2*x+3})=${d + 2*x+3}`;
             row[6] = `${x}+1=${x+1}, ${y}`;
-            d += 2*x + 3;
+            d += 2*x+3;
         } else { //south-east
             row[2] = '&gt;0, SouthEast';
-            row[4] = `2(${x}-${y})+5=${2*(x-y) + 5}`;
-            row[5] = `${d}+(${2*(x-y) + 5})=${d + 2*(x-y) + 5}`;
+            row[3] = '-';
+            row[4] = `2(${x}-${y})+5=${2*(x-y)+5}`;
+            row[5] = `${d}+(${2*(x-y)+5})=${d + 2*(x-y)+5}`;
             row[6] = `${x}+1=${x+1}, ${y}-1=${y-1}`;
-            d += 2*(x-y) + 5;
+            d += 2*(x-y)+5;
+            y--;
+        }
+        x++;
+        tbody2 += draw_circle(x, y, xc, yc, ctx, table2);
+        tbody1 += buildRowString(row);
+        table1.innerHTML = tbody1;
+        table2.innerHTML = tbody2;
+    }
+}
+
+async function midpoint_circle_ver2(xc, yc, r, ctx) {
+    table1 = document.getElementById("table1");
+    const headers = ['iter<br />#', 'd<sub>old</sub>', 'case', 'd<sub>new</sub>', 'Δd<sub>E</sub><br />2x+3', 'Δd<sub>SE</sub><br />2(x-y)+5', 'point<br />x, y']
+    tbody1 = buildRowString(headers, 'th');
+    table1.innerHTML = tbody1;
+    table1.classList.add("myBorder");
+    
+    table2 = document.getElementById("table2");
+    const headers2 = ['generated point<br />x, y', '2nd octant<br />x+xc, y+yc', '1st octant<br />y+xc, x+yc', '3rd octant<br />-x+xc, y+yc', '4th octant<br />-y+xc, x+yc', '6th octant<br />-x+xc, -y+yc', '5th octant<br />-y+xc, -x+yc', '7th octant<br />x+xc, -y+yc', '8th octant<br />y+xc, -x+yc']
+    tbody2 = buildRowString(headers2, 'th');
+    table2.innerHTML = tbody2;
+    table2.classList.add("myBorder");
+    
+    var x = 0;
+    var y = r;
+    var d = 1-r;
+    var dE = 3;
+    var dSE = 5-2*r;
+
+    await sleep(sleepTime);
+    
+    tbody2 += draw_circle(x, y, xc, yc, ctx, table2);
+    var i = 0;
+    row = [i++, '-', '-', '1-R='+d, '2*0+3='+dE, '2(0-R)+5='+dSE, 0+', R='+r]
+    tbody1 += buildRowString(row);
+    table1.innerHTML = tbody1;
+    table2.innerHTML = tbody2;
+
+    while(y > x) { //2nd octant
+        await sleep(sleepTime);
+
+        row = [i++, d];
+        
+        if (d <= 0) { //east
+            row[2] = '&le;0, East';
+            row[3] = `${d}+(${dE})=${d + dE}`;
+            row[4] = `${dE}+2=${dE+2}`;
+            row[5] = `${dSE}+2=${dSE+2}`;
+            row[6] = `${x}+1=${x+1}, ${y}`;
+            d += dE;
+            dE += 2;
+            dSE += 2;
+        } else { //south-east
+            row[2] = '&gt;0, SouthEast';
+            row[3] = `${d}+(${dSE})=${d + dSE}`;
+            row[4] = `${dE}+2=${dE+2}`;
+            row[5] = `${dSE}+4=${dSE+4}`;
+            row[6] = `${x}+1=${x+1}, ${y}-1=${y-1}`;
+            d += dSE;
+            dE += 2;
+            dSE += 4;
+            y--;
+        }
+        x++;
+        tbody2 += draw_circle(x, y, xc, yc, ctx, table2);
+        tbody1 += buildRowString(row);
+        table1.innerHTML = tbody1;
+        table2.innerHTML = tbody2;
+    }
+}
+
+async function Bresenham_circle_ver1(xc, yc, r, ctx) {
+    table1 = document.getElementById("table1");
+    const headers = ['iter<br />#', 'd<sub>old</sub>', 'case', 'Δd<sub>E</sub><br />4x+6', 'Δd<sub>SE</sub><br />4(x-y)+10', 'd<sub>new</sub>', 'point<br />x, y']
+    tbody1 = buildRowString(headers, 'th');
+    table1.innerHTML = tbody1;
+    table1.classList.add("myBorder");
+    
+    table2 = document.getElementById("table2");
+    const headers2 = ['generated point<br />x, y', '2nd octant<br />x+xc, y+yc', '1st octant<br />y+xc, x+yc', '3rd octant<br />-x+xc, y+yc', '4th octant<br />-y+xc, x+yc', '6th octant<br />-x+xc, -y+yc', '5th octant<br />-y+xc, -x+yc', '7th octant<br />x+xc, -y+yc', '8th octant<br />y+xc, -x+yc']
+    tbody2 = buildRowString(headers2, 'th');
+    table2.innerHTML = tbody2;
+    table2.classList.add("myBorder");
+    
+    var x = 0;
+    var y = r;
+    var d = 3-2*r;
+
+    await sleep(sleepTime);
+    
+    tbody2 += draw_circle(x, y, xc, yc, ctx, table2);
+    var i = 0;
+    row = [i++, '-', '-', '-', '-', '1-R='+d, 0+', R='+r]
+    tbody1 += buildRowString(row);
+    table1.innerHTML = tbody1;
+    table2.innerHTML = tbody2;
+
+    while(y > x) { //2nd octant
+        await sleep(sleepTime);
+
+        row = [i++, d];
+        
+        if (d <= 0) { //east
+            row[2] = '&le;0, East';
+            row[3] = `4(${x})+6=${4*x+6}`;
+            row[4] = '-';
+            row[5] = `${d}+(${4*x+6})=${d + 4*x+6}`;
+            row[6] = `${x}+1=${x+1}, ${y}`;
+            d += 4*x+6;
+        } else { //south-east
+            row[2] = '&gt;0, SouthEast';
+            row[3] = '-';
+            row[4] = `4(${x}-${y})+10=${4*(x-y)+10}`;
+            row[5] = `${d}+(${4*(x-y)+10})=${d + 4*(x-y)+10}`;
+            row[6] = `${x}+1=${x+1}, ${y}-1=${y-1}`;
+            d += 4*(x-y)+10;
+            y--;
+        }
+        x++;
+        tbody2 += draw_circle(x, y, xc, yc, ctx, table2);
+        tbody1 += buildRowString(row);
+        table1.innerHTML = tbody1;
+        table2.innerHTML = tbody2;
+    }
+}
+
+async function Bresenham_circle_ver2(xc, yc, r, ctx) {
+    table1 = document.getElementById("table1");
+    const headers = ['iter<br />#', 'd<sub>old</sub>', 'case', 'd<sub>new</sub>', 'Δd<sub>E</sub><br />2x+3', 'Δd<sub>SE</sub><br />2(x-y)+5', 'point<br />x, y']
+    tbody1 = buildRowString(headers, 'th');
+    table1.innerHTML = tbody1;
+    table1.classList.add("myBorder");
+    
+    table2 = document.getElementById("table2");
+    const headers2 = ['generated point<br />x, y', '2nd octant<br />x+xc, y+yc', '1st octant<br />y+xc, x+yc', '3rd octant<br />-x+xc, y+yc', '4th octant<br />-y+xc, x+yc', '6th octant<br />-x+xc, -y+yc', '5th octant<br />-y+xc, -x+yc', '7th octant<br />x+xc, -y+yc', '8th octant<br />y+xc, -x+yc']
+    tbody2 = buildRowString(headers2, 'th');
+    table2.innerHTML = tbody2;
+    table2.classList.add("myBorder");
+    
+    var x = 0;
+    var y = r;
+    var d = 3-2*r;
+    var dE = 6;
+    var dSE = 10-4*r;
+
+    await sleep(sleepTime);
+    
+    tbody2 += draw_circle(x, y, xc, yc, ctx, table2);
+    var i = 0;
+    row = [i++, '-', '-', '3-2R='+d, '4*0+6='+dE, '4(0-R)+10='+dSE, 0+', R='+r]
+    tbody1 += buildRowString(row);
+    table1.innerHTML = tbody1;
+    table2.innerHTML = tbody2;
+
+    while(y > x) { //2nd octant
+        await sleep(sleepTime);
+
+        row = [i++, d];
+        
+        if (d <= 0) { //east
+            row[2] = '&le;0, East';
+            row[3] = `${d}+(${dE})=${d + dE}`;
+            row[4] = `${dE}+4=${dE+4}`;
+            row[5] = `${dSE}+4=${dSE+4}`;
+            row[6] = `${x}+1=${x+1}, ${y}`;
+            d += dE;
+            dE += 4;
+            dSE += 4;
+        } else { //south-east
+            row[2] = '&gt;0, SouthEast';
+            row[3] = `${d}+(${dSE})=${d + dSE}`;
+            row[4] = `${dE}+4=${dE+4}`;
+            row[5] = `${dSE}+8=${dSE+8}`;
+            row[6] = `${x}+1=${x+1}, ${y}-1=${y-1}`;
+            d += dSE;
+            dE += 4;
+            dSE += 8;
             y--;
         }
         x++;
