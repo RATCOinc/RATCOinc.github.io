@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Circle Drawing</title>
+    <title>Ellipse Drawing</title>
     <meta charset="utf-8">
     <meta name='viewport' content='width=1024'> 
     <!-- width=device-width, initial-scale=1'> -->
@@ -22,16 +22,17 @@
         <div class="w3-container w3-red">
             <div class="w3-col w3-container s6 m3 l2"><label for="x">x<sub>c</sub> </label><input id='xc' type="text" value="0" size="4" /></div>
             <div class="w3-col w3-container s6 m3 l2"><label for="y">y<sub>c</sub> </label><input id='yc' type="text" value="0" size="4" /></div>
-            <div class="w3-col w3-container s8 m4 l3"><label for="r">Radius </label><input id='r' type="text" value="20" size="4" /></div><br />
+            <div class="w3-col w3-container s6 m3 l2"><label for="a">a </label><input id='a' type="text" value="20" size="4" /></div>
+            <div class="w3-col w3-container s6 m3 l2"><label for="b">b </label><input id='b' type="text" value="15" size="4" /></div>
         </div>
         <div class="w3-container w3-gray">
             <div class="w3-col w3-container s6 m6 l5">
                 <label for="algo">Algorithm </label>
                 <select name="algo" id="algo">
-                    <option value="circle_m1">Midpoint ver1</option>
-                    <option value="circle_m2">Midpoint ver2</option>
-                    <option value="circle_b1">Bresenham ver1</option>
-                    <option value="circle_b2">Bresenham ver2</option>
+                    <option value="ellipse_m1">Midpoint</option>
+                    <!-- <option value="m2">Midpoint ver2</option>
+                    <option value="b1">Bresenham ver1</option>
+                    <option value="b2">Bresenham ver2</option> -->
                 </select>
             </div>
             <div class="w3-col w3-container s4 m2 l2"><button id="b" onclick="draw();">Draw</button><br /></div>
@@ -42,11 +43,13 @@
         <canvas id="draw" class="w3-col s12 m5 l4 myBorder"></canvas>
     
         <div class="w3-tiny w3-col s12 m7 l8" style="padding-left: 5px;">
+            <div id='info' class="w3-large"></div>
             <table class="w3-table w3-bordered w3-centered" id="table1">
                 <!-- <tr><td class="w3-gray">abcd</td></tr> -->
             </table>
         </div><br /><br />
         <div class="w3-tiny w3-col s12 m12 l12" style="padding-top: 5px;">
+            <div id='info2' class="w3-large"></div>
             <table class="w3-table w3-bordered w3-centered" id="table2">
                 <!-- <tr><td class="w3-gray">abcd</td></tr> -->
             </table>

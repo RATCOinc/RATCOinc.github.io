@@ -56,32 +56,54 @@ function draw() {
     // ctx.stroke();
 
     
-    xc = Number(document.getElementById('xc').value);
-    yc = Number(document.getElementById('yc').value);
-    r = Number(document.getElementById('r').value);
     algo = document.getElementById('algo').value;
     
 
-    ctx.fillRect(0,0,1,1);
-    ctx.font = "3px Monospace";
-    ctx.fillText(`(${xc},${yc})`, 1, 1);
-
     switch (algo) {
-        case 'm1':
+        case 'line_dda':
+            // xc = Number(document.getElementById('xc').value);
+            // yc = Number(document.getElementById('yc').value);
+            // r = Number(document.getElementById('r').value);
+            // midpoint_circle_ver1(xc, yc, r, ctx);
+            return; //to avoid printing center point
+        case 'circle_m1':
+            xc = Number(document.getElementById('xc').value);
+            yc = Number(document.getElementById('yc').value);
+            r = Number(document.getElementById('r').value);
             midpoint_circle_ver1(xc, yc, r, ctx);
             break;
-        case 'm2':
+        case 'circle_m2':
+            xc = Number(document.getElementById('xc').value);
+            yc = Number(document.getElementById('yc').value);
+            r = Number(document.getElementById('r').value);
             midpoint_circle_ver2(xc, yc, r, ctx);
             break;
-        case 'b1':
+        case 'circle_b1':
+            xc = Number(document.getElementById('xc').value);
+            yc = Number(document.getElementById('yc').value);
+            r = Number(document.getElementById('r').value);
             Bresenham_circle_ver1(xc, yc, r, ctx);
             break;
-        case 'b2':
+        case 'circle_b2':
+            xc = Number(document.getElementById('xc').value);
+            yc = Number(document.getElementById('yc').value);
+            r = Number(document.getElementById('r').value);
             Bresenham_circle_ver2(xc, yc, r, ctx);
+            break;
+        case 'ellipse_m1':
+            xc = Number(document.getElementById('xc').value);
+            yc = Number(document.getElementById('yc').value);
+            a = Number(document.getElementById('a').value);
+            b = Number(document.getElementById('b').value);
+            midpoint_ellipse_ver1(xc, yc, a, b, ctx);
             break;
         default:
             break;
     }
+
+    ctx.fillRect(0,0,1,1);
+    ctx.font = "3px Monospace";
+    ctx.fillText(`(${xc},${yc})`, 1, 1);
 }
 
 function buildRowString(values, tag='td') {
@@ -339,6 +361,152 @@ async function Bresenham_circle_ver2(xc, yc, r, ctx) {
         }
         x++;
         tbody2 += draw_circle(x, y, xc, yc, ctx, table2);
+        tbody1 += buildRowString(row);
+        table1.innerHTML = tbody1;
+        table2.innerHTML = tbody2;
+    }
+}
+
+function draw_ellipse(x, y, xc, yc, swap, ctx, table2) {
+    if(swap) {
+        x = x+y;
+        y = x-y;
+        x = x-y;
+    }
+
+    // ctx.beginPath();
+    dx = [1, -1, -1, 1];
+    dy = [1, 1, -1, -1];
+
+    tmp = [`${x},${y}`]
+    for (let i = 0; i < 4; i++) {
+        ctx.fillRect(dx[i]*x,dy[i]*y,1,1);
+        // ctx.fillRect(dx[i]*y,dy[i]*x,1,1);
+
+        tmp[i+1] = `${dx[i]*x}+${xc}=${dx[i]*x+xc}, ${dy[i]*y}+${yc}=${dy[i]*y+yc}`;
+        // tmp[2*i+2] = `${dx[i]*y}+${xc}=${dx[i]*y+xc}, ${dy[i]*x}+${yc}=${dy[i]*x+yc}`;
+    }
+    return buildRowString(tmp);
+    // ctx.fillRect(x,y,1,1);
+
+    // ctx.fillRect(X+10,Y+10,3,3);
+    // ctx.stroke();
+}
+
+async function midpoint_ellipse_ver1(xc, yc, a, b, ctx) {
+    info = document.getElementById('info');
+    info2 = document.getElementById('info2');
+    var swap = 0;
+    if(a>=b) {
+        info.innerHTML = 'Here a &ge; b, proceed normally';
+    } else {
+        info.innerHTML = 'Here a < b, swap a with b';
+        info2.innerHTML = 'Since a < b, swap x with y';
+        a = a+b;
+        b = a-b;
+        a = a-b;
+        var swap = 1;
+    }
+    
+
+    table1 = document.getElementById("table1");
+    tbody1 = '<tr><th colspan="7">\
+        Region 1: Δd<sub>E</sub>=b<sup>2</sup>(2x+3), \
+        Δd<sub>SE</sub>=b<sup>2</sup>(2x+3)+a<sup>2</sup>(2-2y), \
+        d<sub>start</sub>=round(b<sup>2</sup>-a<sup>2</sup>b+a<sup>2</sup>/4) \
+        </th></tr>';
+    const headers = ['iter #', 'd<sub>old</sub>', 'case', 'Δd<sub>E</sub>', 'Δd<sub>SE</sub>', 'd<sub>new</sub>', 'point: x, y'];
+    tbody1 += buildRowString(headers, 'th');
+    table1.innerHTML = tbody1;
+    table1.classList.add("myBorder");
+    
+    table2 = document.getElementById("table2");
+    const headers2 = ['generated point<br />x, y', '1st quadrant<br />x+xc, y+yc', '2nd quadrant<br />-x+xc, y+yc', '3rd quadrant<br />-x+xc, -y+yc', '4th octant<br />x+xc, -y+yc'];
+    tbody2 = buildRowString(headers2, 'th');
+    table2.innerHTML = tbody2;
+    table2.classList.add("myBorder");
+    
+    /* Region 1 */
+    var x = 0;
+    var y = b;
+    var d = Math.round(b*b - a*a*b + a*a/4);
+
+    await sleep(sleepTime);
+    
+    tbody2 += draw_ellipse(x, y, xc, yc, swap, ctx, table2);
+    var i = 0;
+    row = [i++, '-', '-', '-', '-', 'd<sub>start</sub>='+d, 0+', b='+b];
+    tbody1 += buildRowString(row);
+    table1.innerHTML = tbody1;
+    table2.innerHTML = tbody2;
+
+    while(a*a*y > b*b*x) { //region 1
+        await sleep(sleepTime);
+
+        row = [i++, d];
+        
+        if (d <= 0) { //east
+            row[2] = '&le;0, East';
+            row[3] = b*b*(2*x+3);
+            row[4] = '-';
+            row[5] = `${d}+(${b*b*(2*x+3)})=${d + b*b*(2*x+3)}`;
+            row[6] = `${x}+1=${x+1}, ${y}`;
+            d += b*b*(2*x+3);
+        } else { //south-east
+            row[2] = '&gt;0, SouthEast';
+            row[3] = '-';
+            row[4] = b*b*(2*x+3) + a*a*(2-2*y);
+            row[5] = `${d}+(${b*b*(2*x+3) + a*a*(2-2*y)})=${d + b*b*(2*x+3) + a*a*(2-2*y)}`;
+            row[6] = `${x}+1=${x+1}, ${y}-1=${y-1}`;
+            d += b*b*(2*x+3) + a*a*(2-2*y);
+            y--;
+        }
+        x++;
+        tbody2 += draw_ellipse(x, y, xc, yc, swap, ctx, table2);
+        tbody1 += buildRowString(row);
+        table1.innerHTML = tbody1;
+        table2.innerHTML = tbody2;
+    }
+
+    /* Region 2 */
+    await sleep(sleepTime);
+    tbody1 += '<tr><th colspan="7">\
+        Region 2: Δd<sub>SE</sub>=b<sup>2</sup>(2x+2)+a<sup>2</sup>(3-2y), \
+        Δd<sub>S</sub>=a<sup>2</sup>(3-2y), \
+        d<sub>start</sub>=round(b<sup>2</sup>(x+&frac12;)<sup>2</sup>+a<sup>2</sup>(y-1)<sup>2</sup>-a<sup>2</sup>b<sup>2</sup>) \
+        </th></tr>';
+    const headers_region2 = ['iter #', 'd<sub>old</sub>', 'case', 'Δd<sub>SE</sub>', 'Δd<sub>S</sub>', 'd<sub>new</sub>', 'point: x, y'];
+    tbody1 += buildRowString(headers_region2, 'th');
+    
+    d = Math.round(b*b*(x+0.5)*(x+0.5) + a*a*(y-1)*(y-1) - a*a*b*b);
+    
+    row = ['-', '-', '-', '-', '-', 'd<sub>start</sub>='+d, '-'];
+    tbody1 += buildRowString(row);
+    table1.innerHTML = tbody1;
+    
+    while(y > 0) { //region 2
+        await sleep(sleepTime);
+
+        row = [i++, d];
+        
+        if (d < 0) { //south-east
+            row[2] = '&le;0, SouthEast';
+            row[3] = b*b*(2*x+2) + a*a*(3-2*y);
+            row[4] = '-';
+            row[5] = `${d}+(${b*b*(2*x+2) + a*a*(3-2*y)})=${d + b*b*(2*x+2) + a*a*(3-2*y)}`;
+            row[6] = `${x}+1=${x+1}, ${y}-1=${y-1}`;
+            d += b*b*(2*x+2) + a*a*(3-2*y);
+            x++
+        } else { //south
+            row[2] = '&gt;0, South';
+            row[3] = '-';
+            row[4] = a*a*(3-2*y);
+            row[5] = `${d}+(${a*a*(3-2*y)})=${d + a*a*(3-2*y)}`;
+            row[6] = `${x}, ${y}-1=${y-1}`;
+            d += a*a*(3-2*y);
+        }
+        y--;
+        tbody2 += draw_ellipse(x, y, xc, yc, swap, ctx, table2);
         tbody1 += buildRowString(row);
         table1.innerHTML = tbody1;
         table2.innerHTML = tbody2;
