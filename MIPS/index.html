@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-ER6C3FDM04"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-ER6C3FDM04');
+        </script>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>MIPS Resources</title>
+    </head>
+    
+    <body>
+        <h3>The assignment: [<a href="Assignment_3_2022.pdf">pdf</a>]</h3>
+        <h3>The MIPS Tutorial: [<a href="MIPS_tutorial_2022.pdf">pdf</a>]</h3>
+        <h3>An overview of SPIM and the MIPS32 instruction set: [<a href="https://pages.cs.wisc.edu/~larus/HP_AppA.pdf">pdf</a>]</h3>
+        <h3>MIPS Cheat Sheet: [<a href="https://inst.eecs.berkeley.edu/~cs61c/resources/MIPS_Green_Sheet.pdf">pdf</a>]</h3>
+        <h3>Other Resources</h3>
+        <h5>
+            <a href="https://ecs-network.serv.pacific.edu/ecpe-170/16mipsassembly.pdf">MIPS Arithmetic, Branches [pdf]</a><br/>
+            <a href="https://ecs-network.serv.pacific.edu/ecpe-170/17mipsassembly2.pdf">MIPS Memory, Arrays [pdf]</a><br/>
+            <a href="https://courses.cs.vt.edu/~cs2505/fall2010/Notes/pdf/T23.MIPSArrays.pdf">MIPS Arrays detailed [pdf]</a>
+        </h5>
+        <h3>Demonstration of Integer Overflow</h3>
+<pre class="prettyprint">
+/*
+    A C code demonstrating Integer Overflow
+    caused due to arithmetic operation
+*/
+
+#include &lt;stdio.h&gt;
+#include &lt;limits.h&gt;
+
+int main()
+{
+    int x = INT_MAX;
+    int y = x+x; // overflow
+    
+    if(y &gt; x) {
+        printf(&quot;OK&quot;);
+    } else {
+        printf(&quot;Not OK&quot;);
+    }
+
+    return 0;
+}
+</pre>
+        <h3>MIPS code templates for assignments</h3>
+<pre class="prettyprint">
+# general template MIPS code for QtSPIM
+# save this code with .asm extension and
+# load into QtSPIM via the 'reinitialize and load' option in File menu
+
+# Declare main as a global function
+.globl main
+
+# All program code is placed after the
+# .text assembler directive
+.text
+
+# The label 'main' represents the starting point
+main:
+	######################
+	# your code goes here
+	######################
+
+	# Exit the program by means of a syscall.
+	# There are many syscalls - pick the desired one
+	# by placing its code in $v0. The code for exit is "10"
+	li $v0, 10 # Sets $v0 to "10" to select exit syscall
+	syscall # Exit
+
+
+# All memory structures are placed after the
+# .data assembler directive
+.data
+
+# The .word assembler directive reserves space
+# in memory for a single 4-byte word (or multiple 4-byte words)
+# and assigns that memory location an initial value
+# (or a comma separated list of initial values)
+value:	.word 2022 # single value
+list:	.word 2, 4, 6, 8 # a list of values, each of 4 bytes
+</pre>
+        <h5>Assignment 2</h5>
+<pre class="prettyprint">
+# save this code as A2.asm and
+# load into QtSPIM via the 'reinitialize and load' option in File menu
+.globl main
+.text
+
+main:
+	lw $t0, value
+
+	############################
+	# your code goes here
+	# do not modify other parts
+	############################
+    
+	addi $a0, $t0, 1 # integer to be printed on QtSPIM console
+	li $v0, 1 # print_int syscall
+	syscall # should print -value
+	
+	li $v0, 10 # exit syscall
+	syscall
+
+.data
+value:	.word 2022 # you may play with this value
+</pre>
+	<h5>Assignment 3</h5>
+<pre class="prettyprint">
+# save this code as A3.asm and
+# load into QtSPIM via the 'reinitialize and load' option in File menu
+.globl main
+.text
+
+main:
+	############################
+	# your code goes here
+	# do not modify other parts
+	############################
+
+	move $a0, $t0 # integer to be printed on QtSPIM console
+	li $v0, 1 # print_int syscall
+	syscall # should print value of D
+
+	li $v0, 10 # exit syscall
+	syscall
+</pre>
+        <h5>Assignment 4</h5>
+<pre class="prettyprint">
+# save this code as A4.asm and
+# load into QtSPIM via the 'reinitialize and load' option in File menu
+.globl main
+.text
+
+main:
+	lw $t0, n
+
+	############################
+	# your code goes here
+	# do not modify other parts
+	############################
+
+	lw $t0, X # load the address where the value is stored
+	lw $a0, 0($t0) # load the integer to be printed on QtSPIM console
+	li $v0, 1 # print_int syscall
+	syscall # should print the count
+
+	li $v0, 10 # exit syscall
+	syscall
+
+.data
+n:	.word 2022 # play with this value
+X:	.word 0x10001920 # change this value accordingly
+</pre>
+        <h5>Assignment 5</h5>
+<pre class="prettyprint">
+# save this code as A5.asm and
+# load into QtSPIM via the 'reinitialize and load' option in File menu
+.globl main
+.data
+n:	.word 10 # play with this value
+list:	.word 0, 1, 5, 9, 6, 4, 8, 2, 7, 10 # play with these values
+
+loc_n:	.word 0x10001000 # do not change this value
+loc_data:	.word 0x10002000 # do not change this value
+loc_output:	.word 0x10003000 # do not change this value
+
+.text
+
+main:
+	# write n into memory
+	lw $t0, loc_n
+	lw $t1, n
+	sw $t1, 0($t0)
+
+	# write the values into memory
+	lw $t0, loc_data
+	la $t2, list
+load_loop:
+	lw $t4, 0($t2)
+	sw $t4, 0($t0)
+	addi $t0, $t0, 4
+	addi $t2, $t2, 4
+	addi $t1, $t1, -1
+	bne $t1, $0, load_loop
+
+	j code
+
+main_rest:
+	lw $t0, loc_output # load the address where the value is stored
+	lw $a0, 0($t0) # load the integer to be printed on QtSPIM console
+	li $v0, 1 # print_int syscall
+	syscall # should print the missing value
+
+	li $v0, 10 # exit syscall
+	syscall
+
+
+code:
+	############################
+	# your code goes here
+	# do not modify other parts
+	############################
+
+	j main_rest  # do not modify this line
+</pre>
+        
+    </body>
+</html>
