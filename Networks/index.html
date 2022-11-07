@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
+        <meta name='viewport' content='width=1024'>
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-ER6C3FDM04"></script>
         <script>
@@ -12,7 +13,7 @@
         </script>
         <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Socket Programming</title>
+        <title>Network Programming</title>
 		<style>
 			body {
 				font-size: 1.5em;
@@ -30,14 +31,70 @@
     </head>
     
     <body style="color: white; background-color: black; text-align: center">
-        
-        <h3>Socket Programming part1: [<a href="Socket_1.pdf">pdf</a>]</h3>
-        <h3>Socket Programming part2: [<a href="Socket_2.pdf">pdf</a>]</h3>
-        <h3>Socket Programming part3: [<a href="Socket_3.pdf">pdf</a>]</h3>
-        <h3>Socket Programming part4: [<a href="Socket_4.pdf">pdf</a>]</h3>
-        <h3>Codes: [<a href="codes.html">webpage</a>]</h3>
+        <h1>Network Programming</h1>
+        <table border="1" style="border-color: red; width: 100%">
+            <tr>
+                <th>Topics</th>
+                <th style="width: 25%">Slides</th>
+            </tr>
+            <tr>
+                <td>
+                    Introduction to Socket Programming<br/>
+                    Definition of sockets, UNIX socket APIs for C<br/>
+                    Creating an Echo Server &amp; communicating using <code>telnet</code>
+                </td>
+                <td>
+                    <a href="day_1.pdf">day 1</a><br/>
+                    (PDF, ~500KB)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Displaying Client's IP and Port<br/>
+                    Designing a Client<br/>
+                    Sending an Integer over a Socket<br/>
+                    Handling Multiple Clients
+                </td>
+                <td>
+                    <a href="day_2.pdf">day 2</a><br/>
+                    (PDF, ~450KB)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Dealing with Partial Sends<br/>
+                    Monitoring Multiple Sockets using <code>poll()</code> API<br/>
+                    Sending Data to Multiple Hosts: Broadcast vs Multicast
+                </td>
+                <td>
+                    <a href="day_3.pdf">day 3</a><br/>
+                    (PDF, ~500KB)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Introduction to Remote Procedure Calls<br/>
+                    RPC Application Development using <code>rpcgen</code> compiler<br/>
+                    A small example: adding an integer pair using RPC<br/>
+                    Another example: summing an array over RPC
+                </td>
+                <td>
+                    <a href="day_4.pdf">day 4</a><br/>
+                    (PDF, ~550KB)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>Codes</h3>
+                </td>
+                <td>
+                    <a href="codes.html">codes</a><br/>
+                    (webage)
+                </td>
+            </tr>
+        </table>
         <hr/>
-        <h3>External Resources</h3>
+        <h2>External Resources</h2>
         <h5>
             UNIX Network Programming [book] by <a href="http://www.kohala.com/start/">W. Richard Stevens</a><br/>
             Beej's Guide to Network Programming: Using Internet Sockets [<a href="https://beej.us/guide/bgnet/">webpage</a>]<br/><br/>
@@ -56,6 +113,7 @@
             Writing Remote Procedural Calls [<a href="https://www.cprogramming.com/tutorial/rpc/remote_procedure_call_start.html">webpage</a>]<br/>
             Oracle <code>rpcgen</code> Guide [<a href="https://docs.oracle.com/cd/E23824_01/html/821-1671/rpcgenpguide-24243.html">webpage</a>]<br/>
             Detailed Overview of RPC [<a href="https://docs-legacy.freebsd.org/44doc/psd/23.rpc/paper.pdf">pdf</a>]<br/>
+            RPC vs Socket [<a href="https://stackoverflow.com/a/46128640">stackoverflow</a>]
         </h5>
         <table style="width: 100%">
             <tr>
