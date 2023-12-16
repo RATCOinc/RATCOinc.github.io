@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta name='viewport' content='width=1024'>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-ER6C3FDM04"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-ER6C3FDM04');
+        </script>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Socket Programming</title>
+		<style>
+			body {
+				font-size: 1.5em;
+			}
+			
+			a {
+				color: red;
+			}
+			
+			td {
+				text-align: center;
+				/*padding: 1em;*/
+			}
+			input[type=submit] {
+			    /*width: 5em;  height: 2em;*/
+			    font-size: 1em;
+			    color: red;
+			}
+		</style>
+    </head>
+    
+    <body style="color: white; background-color: black; text-align: center;">
+    	<form action="" method="GET">
+    		<table width="100%">
+    			<tr>
+    				<td>Echo Server</td>
+    				<td>Integer Transmission</td>
+    				<td>Multi-client fork()</td>
+    				<td>Multi-client poll()</td>
+    				<td>Multicasting</td>
+    			</tr>
+    			<tr>
+    				<td>
+    					<input type="submit" value="server1" name="fname" />
+    					<input type="submit" value="client1" name="fname" />
+    				</td>
+    				<td>
+    					<input type="submit" value="server2" name="fname" />
+    					<input type="submit" value="client2" name="fname" />
+    				</td>
+    				<td>
+    					<input type="submit" value="server3" name="fname" />
+    				</td>
+    				<td>
+    					<input type="submit" value="server4" name="fname" />
+    				</td>
+    				<td>
+    					<input type="submit" value="server5" name="fname" />
+    					<input type="submit" value="client5" name="fname" />
+    				</td>
+    			</tr>
+    		</table>
+    		<hr />
+    		<table width="100%">
+    			<tr>
+    				<td>RPC: add int pair</td>
+    				<td>RPC: add array</td>
+    			</tr>
+    			<tr>
+    				<td>
+    					<input type="submit" value="calc.x" name="fname" />
+    					<input type="submit" value="calc_server" name="fname" />
+    					<input type="submit" value="calc_client" name="fname" />
+    					<input type="submit" value="Makefile.calc" name="fname" />
+    				</td>
+    				<td>
+    					<input type="submit" value="arr.x" name="fname" />
+    					<input type="submit" value="arr_server" name="fname" />
+    					<input type="submit" value="arr_client" name="fname" />
+    					<input type="submit" value="Makefile.arr" name="fname" />
+    				</td>
+    			</tr>
+    		</table>
+    	</form>
+  		<hr />
+    	<pre class="prettyprint lang-c" style="text-align: left; background-color: white; " id="preTag">
+			<center>Click on a filename, to display its contents</center>
+		</pre>
+		<table style="width: 100%">
+			<tr>
+				<td><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a></td>
+				<td><div class="small">This webpage and all linked resources are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</div></td>
+			</tr>
+		</table>
+		<script>
+// 			https://stackoverflow.com/questions/6234773/can-i-escape-html-special-chars-in-javascript
+			function escapeHtml(unsafe) {
+				return unsafe
+					.replace(/&/g, "&amp;")
+					.replace(/</g, "&lt;")
+					.replace(/>/g, "&gt;")
+					.replace(/"/g, "&quot;")
+					.replace(/'/g, "&#039;");
+			}
+// 			https://stackoverflow.com/questions/1586330/access-get-directly-from-javascript
+			function loadFile(file) {
+				const xhttp = new XMLHttpRequest();
+				xhttp.onload = function() {
+					document.getElementById("preTag").innerHTML =
+					PR.prettyPrintOne( escapeHtml(this.responseText) );
+				}
+				xhttp.open("GET", file);
+				xhttp.send();
+			}
+			file = window.location.search.split("=");
+			if(file.length == 2) {
+				code = file[1];
+				if (code.substring(code.length - 2) === '.x' ||
+						code.substring( 0, 9 ) === 'Makefile.') {
+					loadFile(file[1]);
+				} else {
+					loadFile(file[1] + '.c');
+				}
+// 				https://github.com/googlearchive/code-prettify/issues/268
+// 				PR.prettyPrint();
+			}
+			
+		</script>
+	</body>
+</html>

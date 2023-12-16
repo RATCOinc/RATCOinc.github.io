@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title></title>
+    </head>
+    
+    <body>
+    	<h1>ns-3 Guide</h1>
+    	Download ns-3 (version 3.36.1) &nbsp; &nbsp; &nbsp; <a href="https://www.nsnam.org/releases/ns-allinone-3.36.1.tar.bz2">Official Mirror</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="ns-allinone-3.36.1.tar.bz2">Local (isical) Mirror</a><br/><br/>
+    	
+    	 <h3>Extract the tar file</h3><code>tar -xvf ns-allinone-3.36.1.tar.bz2</code>
+    	 <h3>Change into the installation directory</h3><code>cd ns-allinone-3.36.1/ns-3.36.1/</code>
+    	 <h3>Configure ns-3 examples and tutorials</h3><code>./ns3 configure --build-profile=debug --enable-examples --enable-tests</code>
+    	 <h3>Build ns-3</h3><code>./ns3 build</code>
+    	 <h3>Testing</h3><code>./test.py --no-build</code>
+    	 <h3>Sample Run</h3><code>./ns3 run hello-simulator</code>
+    </body>
+</html>

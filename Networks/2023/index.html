@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta name='viewport' content='width=1024'>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-ER6C3FDM04"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-ER6C3FDM04');
+        </script>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Network Programming</title>
+		<style>
+			body {
+				font-size: 1.5em;
+			}
+			
+			a {
+				color: red;
+			}
+			
+			td {
+				text-align: center;
+				padding: 1em;
+			}
+		</style>
+    </head>
+    
+    <body style="color: white; background-color: black; text-align: center">
+        <h1>Network Programming</h1>
+        <table border="1" style="border-color: red; width: 95%; margin-left: auto; margin-right: auto;">
+            <tr>
+                <th>Topics</th>
+                <th style="width: 25%">Slides</th>
+            </tr>
+            <tr>
+                <td>
+                    Introduction to Network Sockets<br/>
+                    Definition of sockets<br/>
+                    Some background: command-line arguments, I/O using system calls<br/>
+                    Communicating with an Echo Serever using <code>telnet</code>
+                </td>
+                <td>
+                    <a href="day1.pdf">day 1</a><br/>
+                    (PDF, ~550KB)<br/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Designing the Echo Server<br/>
+                    Designing a Client<br/>
+                    Passing integer over a socket: writing device independent codes <br/>
+                    Some odds and ends: data serialization, multi-client communication, multicasting
+                </td>
+                <td>
+                    <a href="day2.pdf">day 2</a><br/>
+                    (PDF, ~550KB)<br/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Simulating stop-and-wait protocol<br/>
+                    Introducing delay using <code>sleep()</code><br/>
+                    Monitoring FDs for I/O events using <code>select()</code><br/>
+                    Deterministic and randomized frame loss
+                </td>
+                <td>
+                    <a href="day3.pdf">day 3</a><br/>
+                    (PDF, ~500KB)<br/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Introduction to Remote Procedure Calls<br/>
+                    RPC Application Development using <code>rpcgen</code> compiler<br/>
+                    A small example: adding an integer pair using RPC<br/>
+                    Another example: summing an array over RPC
+                </td>
+                <td>
+                    <a href="day4.pdf">day 4</a><br/>
+                    (PDF, ~550KB)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>Codes</h3>
+                </td>
+                <td>
+                    <a href="codes.html">codes</a><br/>
+                    (webage)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>Few Sample Questions</h3>
+                </td>
+                <td>
+                    <a href="sample.pdf">practice problems</a><br/>
+                    (PDF, ~200KB)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>ns-3 Experiment</h3>
+                    (TA: Souvik Deb)
+                </td>
+                <td>
+                    <a href="ns3.html">Guide</a> (webage)<br/>
+                    <a href="exp11.cc">Experiment</a> (ns-3 code)<br/>
+                    <a href="py_trace.py">Trace Analysis</a> (python script)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>Exam Paper</h3>
+                </td>
+                <td>
+                    <a href="exam.pdf">question paper</a><br/>
+                    (PDF, ~200KB)
+                </td>
+            </tr>
+        </table>
+        <br/><hr/><br/>
+        <h2>External Resources</h2>
+        <h5>
+            Previous Iteration (course webpage of 2022) [<a href="https://ratcoinc.github.io/Networks/2022">webpage</a>]<br/><br/>
+
+            UNIX Network Programming [book] by <a href="http://www.kohala.com/start/">W. Richard Stevens</a><br/>
+            Beej's Guide to Network Programming: Using Internet Sockets [<a href="https://beej.us/guide/bgnet/">webpage</a>]<br/><br/>
+            C Socket Programming: Simple Server and Client [<a href="https://github.com/kusdavletov/socket-programming-simple-server-and-client">github repo</a>]<br/>
+            Echo server and client using sockets in c [<a href="https://mohsensy.github.io/programming/2019/09/25/echo-server-and-client-using-sockets-in-c.html">webpage</a>]<br/><br/>
+            
+            Serialization of complex data [<a href="https://stackoverflow.com/questions/1577161/passing-a-structure-through-sockets-in-c">stackoverflow discussion (webpage)</a>] [<a href="https://github.com/protobuf-c/protobuf-c/wiki/Examples">Google's Protocol Buffers Examples (webpage)</a>]<br/><br/>
+            
+            Multi-client Communication [<a href="day2.pdf#page=40">some pointers and last year's slide</a>]<br/><br/>
+            
+            Multicast Sockets [<a href="https://www.ibm.com/docs/en/aix/7.3?topic=sockets-ip-multicasts">docs (webpage)</a>] [<a href="https://docs.oracle.com/cd/E26502_01/html/E35299/sockets-137.html">docs (webpage)</a>] [<a href="http://www.cs.unc.edu/~jeffay/dirt/FAQ/comp249-001-F99/mcast-socket.html">Tips (webpage)</a>] [<a href="https://web.cs.wpi.edu/~claypool/courses/4514-B99/samples/multicast.c">Sample code</a>]<br/><br/>
+            
+            Socket Programming (using Python) [<a href="https://ecs-network.serv.pacific.edu/past-courses/2016-spring-ecpe-170/lab/lab-network-basic">webpage</a>]<br/>
+            Socket Programming HOWTO (Python official documentation) [<a href="https://docs.python.org/3/howto/sockets.html">webpage</a>]<br/>
+            Socket Programming in Python [<a href="https://realpython.com/python-sockets/">webpage</a>]<br/><br/>
+            
+            Introduction to RPC [<a href="https://people.cs.rutgers.edu/~pxk/417/notes/pdf/02a-rpc-slides.pdf">pdf</a>] [<a href="https://people.cs.rutgers.edu/~pxk/417/notes/rpc.html">webpage</a>]<br/>
+            Introduction to RPC: a step-by-step guide [<a href="https://people.cs.rutgers.edu/~pxk/417/notes/rpc/">webpage</a>]<br/>
+            Overview of RPC [<a href="https://users.cs.cf.ac.uk/Dave.Marshall/C/node33.html">webpage</a>]<br/>
+            Writing Remote Procedural Calls [<a href="https://www.cprogramming.com/tutorial/rpc/remote_procedure_call_start.html">webpage</a>]<br/>
+            Oracle <code>rpcgen</code> Guide [<a href="https://docs.oracle.com/cd/E23824_01/html/821-1671/rpcgenpguide-24243.html">webpage</a>]<br/>
+            Detailed Overview of RPC [<a href="https://docs-legacy.freebsd.org/44doc/psd/23.rpc/paper.pdf">pdf</a>]<br/>
+            RPC vs Socket [<a href="https://stackoverflow.com/a/46128640">stackoverflow</a>]<br/><br/>
+            
+            ns-3 Tutorials [<a href="https://www.nsnam.org/docs/tutorial/html/">official tutorial (webpage)</a>] [<a href="https://www.nsnam.org/documentation/">official documentation (webpage)</a>]<br/>
+            Some Introductory Materials on ns-3 [<a href="https://www.inf.ed.ac.uk/teaching/courses/cn/ns3_intro.pdf">pdf</a>] [<a href="http://www.cs.otago.ac.nz/debs2018/program/slides/DEBS2018-Tutorial-Ns-3-final.pdf">pdf</a>] [<a href="https://www.youtube.com/playlist?list=PLX6MKaDw0naZILVYjo8_quA4JI8Jz-idL">YouTube</a>] <br/>
+        </h5>
+        <table style="width: 100%">
+            <tr>
+                <td><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a></td>
+                <td><div class="small">This webpage and all linked resources are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</div></td>
+            </tr>
+        </table>
+    </body>
+</html>
